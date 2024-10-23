@@ -64,6 +64,7 @@ public class BoardController extends HttpServlet {
 			// 정보가 필요하다면 정보를 DB에서 요청하여 request를 객체에 담아 보내기
 			destPage = "/board/register.jsp";
 			break;
+			
 		case "insert" :
 			try {
 				log.info("insert case in!!!");
@@ -83,6 +84,7 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}			
 			break;
+			
 		case "list" : 
 			try {
 				// 전체 리스트를 가지고 list.jsp로 전달
@@ -100,19 +102,58 @@ public class BoardController extends HttpServlet {
 			}
 			break;
 			
-		case "detail" :
+		case "detail" : case "modify" :
 			//? 달린 쿼리스트링은 같이 오지 않음
 			try {
 				int bno = Integer.parseInt(request.getParameter("bno"));
 				BoardVO bvo = bsv.getDetail(bno);
 				log.info(">>>> bvo >>>> {}", bvo);
 				request.setAttribute("bvo", bvo);
-				destPage="/board/detail.jsp";
+				
+				//방법1
+				if(path.equals("detail")) {
+					destPage="/board/detail.jsp";					
+				}else {
+					destPage="/board/modify.jsp";
+				}
+				
+				//방법2 : path명과 jsp 이름이 같다면 사용할 수 있음
+				destPage = "/board/" + path + ".jsp";
 				
 			} catch (Exception e) {
 				log.info("detail error!");
 				e.printStackTrace();
 			}
+			break;
+			
+		case "update" :
+			try {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				BoardVO bvo = new BoardVO(bno, title, content);
+				
+				int isOk = bsv.update(bvo);
+				log.info(">>>> bvo insert " + (isOk>0? "성공":"실패"));
+				// 컨트롤러 내부 케이스는 /brd/ 를 따로 적을 필요가 없음!
+				destPage = "detail?bno=" + bno; 
+			} catch (Exception e) {
+				log.info("update error!");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "delete" :
+			try {
+				int bno = Integer.parseInt(request.getParameter("bno"));
+				int isOk = bsv.delete(bno);
+				log.info(">>>> bvo insert " + (isOk>0? "성공":"실패"));
+				destPage = "list"; 
+			} catch (Exception e) {
+				log.info("delete error!");
+				e.printStackTrace();			}
+			break;
+			
 		}
 		
 		// 목적지 주소(destPage)로 데이터를 전달(RequestDispatcher)

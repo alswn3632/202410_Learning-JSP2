@@ -18,4 +18,12 @@
 	<select id="detail" parameterType="int" resultType="domain.BoardVO">
 		select * from board where bno = #{bno}
 	</select>
+	
+	<update id="up" parameterType="domain.BoardVO">
+		update board set title = #{title}, content = #{content}, moddate = now() where bno = #{bno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from board where bno = #{bno}
+	</delete>
 </mapper>
