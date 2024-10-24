@@ -12,10 +12,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th>no.</th>
-				<th>title</th>
-				<th>writer</th>
-				<th>regdate</th>
+				<th>.</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
 		
@@ -23,9 +24,13 @@
 			<c:forEach items="${list }" var="bvo">
 				<tr>
 					<td>${bvo.bno }</td>
-					<td><a href="/brd/detail?bno=${bvo.bno }">${bvo.title }</a></td>
+					<td><a href="/brd/detail?bno=${bvo.bno }">
+						<img alt="" src="/_fileUpload/_th_${bvo.imageFile }">
+						${bvo.title }
+					</a></td>
 					<td>${bvo.writer }</td>
 					<td>${bvo.regdate }</td>
+					<td>${bvo.readCount }</td>
 				</tr>
 			</c:forEach>			
 		</tbody>

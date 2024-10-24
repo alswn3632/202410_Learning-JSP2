@@ -158,14 +158,34 @@ document.addEventListener('click', (e)=>{
 		updateCommentToServer(cmtData).then(result =>{
 			console.log(result);
 		})
+		
+		
+
+		
 	}
-	
+
 	// 삭제
 	if(e.target.classList.contains('cmtDelBtn')){
 		let cnoVal = e.target.dataset.cno;
-
+		
+		deleteCommentToServer(cnoVal).then(result =>{
+			console.log(result);
+		})
 	}
 	
 	
-	
-})
+	printList(bnoVal);
+});
+
+// 삭제 
+async function deleteCommentToServer(cno){
+	try{
+		const resp = await fetch("/cmt/delete?cno=" + cno);
+		const result = await resp.text();
+		return result;
+	}catch(err){
+		console.log(err);
+	}
+}
+
+// 데이터 좀 먹어라!

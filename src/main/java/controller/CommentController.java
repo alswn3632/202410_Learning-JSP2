@@ -58,6 +58,7 @@ public class CommentController extends HttpServlet {
 				while((line = br.readLine()) != null) {
 					sb.append(line);
 				}
+
 				log.info(">>>> sb > {}", sb.toString());
 				
 				// CommentVO 객체로 생성하기 // json-simple 라이브러리에서 사용
@@ -94,7 +95,7 @@ public class CommentController extends HttpServlet {
 				// 가져온 list를 [{...},{...}] 형식으로 바꿔야함 >> JSONArray
 				// {...} :  JSONObject
 				JSONArray jsonArray = new JSONArray();
-				JSONObject[] jsonObjArr = new JSONObject[list.size()];
+//				JSONObject[] jsonObjArr = new JSONObject[list.size()];
 				
 				for(int i=0; i<list.size(); i++) {					
 //					jsonObjArr[i] = new JSONObject();
@@ -107,9 +108,9 @@ public class CommentController extends HttpServlet {
 					json.put("content", list.get(i).getContent());
 					json.put("regdate", list.get(i).getRegdate());
 					
-					jsonObjArr[i] = json;
+//					jsonObjArr[i] = json;
 					
-					jsonArray.add(jsonObjArr[i]);
+					jsonArray.add(json);
 					
 				}
 				// [{...},{...},{...}] -> jsonArrat를 String으로 변환하여 전송하기
@@ -123,7 +124,56 @@ public class CommentController extends HttpServlet {
 				e.printStackTrace();			
 			}
 			break;
+		case "modify" :
+			try {
+				// JS에서 보낸 데이터 가져오기
+				StringBuffer sb = new StringBuffer();
+				String line = "";
+				BufferedReader br = request.getReader(); // req.body
+				while((line = br.readLine()) != null ) {
+					sb.append(line); // 한줄씩 추가
+				}
+				log.info(">>>> sb > {}", sb.toString());
+				
+				// 객체로 파싱하기
+				JSONParser p = new JSONParser();
+				JSONObject j = (JSONObject)p.parse(sb.toString());
+				
+				log.info(">>>> JSONObject > {}", j);
+				
+				// 댓글 객체 생성하기
+				int cno = Integer.parseInt(j.get("cno").toString());
+				String content = j.get("content").toString();
+				CommentVO cvo = new CommentVO(cno, content);
+				int isOk = csv.modify(cvo);
+				log.info(">>>> modify > {}",(isOk>0? "성공":"실패"));
+				
+				// 결과를 JS로 전송
+				PrintWriter w = response.getWriter();
+				w.print(isOk);
+
+						
+				
+			} catch (Exception e) {
+				log.info("comment modify error!!");
+				e.printStackTrace();				
+			}
+			break;
 			
+		case "delete" :
+			try {
+				int cno = Integer.parseInt(request.getParameter("cno"));
+				int isOk = csv.delete(cno);
+				log.info(">>>> delete > {}",(isOk>0? "성공": "실패"));
+				
+				PrintWriter w = response.getWriter();
+				w.print(isOk);
+				
+			} catch (Exception e) {
+				log.info("comment delete error!!");
+				e.printStackTrace();				
+			}
+			break;
 		}
 		
 		// 목적지를 가지고 작업할 필요가 없지!

@@ -16,4 +16,7 @@ public interface BoardService {
 
 	int delete(int bno);
 
+	int countUp(int bno);
+
+
 }

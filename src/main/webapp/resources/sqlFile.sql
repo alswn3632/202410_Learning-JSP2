@@ -20,3 +20,10 @@ content varchar(2000) not null,
 writer varchar(500) default "unknown",
 regdate datetime default now(),
 primary key(cno));
+
+--2024-10-24
+-- 게시판(board)에 조회수(readCount, int) 칼럼 추가
+alter table board
+add column readCount int default 0;
+-- 게시판에 이미지 파일 칼럼 추가
+alter table board add imageFile varchar(500);

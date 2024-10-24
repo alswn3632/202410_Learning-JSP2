@@ -10,4 +10,12 @@
 	<select id="list" resultType="domain.CommentVO">
 		select * from comment where bno = #{bno} order by cno desc
 	</select>
+	
+	<update id="modify">
+		update comment set content = #{content} where cno = #{cno}
+	</update>
+	
+	<delete id="delete">
+		delete from comment where cno = #{cno}
+	</delete>
 </mapper>

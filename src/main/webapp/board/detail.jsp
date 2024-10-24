@@ -10,8 +10,9 @@
 <body>
 		<h1>Board Detail Page</h1>
 		<hr>
-		<h3>${bvo.bno }. ${bvo.title }</h3>	
+		<h3>${bvo.bno }. ${bvo.title } (${bvo.readCount })</h3>	
 		<h4>${bvo.writer } | ${bvo.regdate }</h4>
+		<img alt="" src="/_fileUpload/${bvo.imageFile }">
 		<h4>${bvo.content }</h4>
 		<!-- 수정 버튼을 통해 내 정보를 가지고 이동 -->
 		<a href="/brd/modify?bno=${bvo.bno }"><button type="button">수정</button></a>
