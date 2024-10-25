@@ -25,7 +25,7 @@
 				<tr>
 					<td>${bvo.bno }</td>
 					<td><a href="/brd/detail?bno=${bvo.bno }">
-						<img alt="" src="/_fileUpload/_th_${bvo.imageFile }">
+						<img alt="" src="/_fileUpload/_th_${bvo.imageFile }" style="width: 75px; height: 75px;">
 						${bvo.title }
 					</a></td>
 					<td>${bvo.writer }</td>

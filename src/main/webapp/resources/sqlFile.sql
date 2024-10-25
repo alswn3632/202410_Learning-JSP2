@@ -27,3 +27,20 @@ alter table board
 add column readCount int default 0;
 -- 게시판에 이미지 파일 칼럼 추가
 alter table board add imageFile varchar(500);
+
+--2024-10-25
+-- 멤버(member) 테이블 생성
+create table member(
+id varchar(100),
+pwd varchar(100) not null,
+email varchar(200) not null,
+phone varchar(50),
+regdate datetime default now(),
+laselogin datetime default now(),
+primary key(id));
+-- 잘못된 칼럼명 수정
+ALTER TABLE member 
+CHANGE laselogin lastlogin DATETIME DEFAULT NOW();
+-- 멤버에 이미지 파일 칼럼 추가
+alter table member add imageFile varchar(500);
+

@@ -13,7 +13,7 @@
 			<input type="hidden" name="bno" value="${bvo.bno }" />
 			<h3>${bvo.bno }. <input type="text" name="title" value="${bvo.title }"></h3>	
 			<h4>${bvo.writer } | ${bvo.regdate }</h4>
-			<img alt="" src="/_fileUpload/${bvo.imageFile }"> <br>
+			<img alt="" src="/_fileUpload/${bvo.imageFile }" style="width: auto; height: 300px;"> <br>
 			<textarea rows="10" cols="50" name="content" >${bvo.content }</textarea> <br>
 			<!-- 파일 변경 -->
 			file :

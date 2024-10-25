@@ -12,7 +12,7 @@
 		<hr>
 		<h3>${bvo.bno }. ${bvo.title } (${bvo.readCount })</h3>	
 		<h4>${bvo.writer } | ${bvo.regdate }</h4>
-		<img alt="" src="/_fileUpload/${bvo.imageFile }">
+		<img alt="" src="/_fileUpload/${bvo.imageFile }" style="width: auto; height: 300px;">
 		<h4>${bvo.content }</h4>
 		<!-- 수정 버튼을 통해 내 정보를 가지고 이동 -->
 		<a href="/brd/modify?bno=${bvo.bno }"><button type="button">수정</button></a>
@@ -24,7 +24,7 @@
 			<h3>Comment Line</h3>
 			<!-- name/value는 해당하는 값을 동기로 가져갈 때 쓰는 것 -->
 			<!-- js를 활용하기 위한 id를 이용 -->
-			<input type="text" id="cmtWriter" placeholder="작성자"><br>
+			<input type="text" id="cmtWriter" placeholder="작성자" value="${ses.id }" readonly="readonly"><br>
 			<input type="text" id="cmtText" placeholder="내용"><br>
 			<button type="button" id="cmtAddBtn">등록</button> 
 		</div>		
